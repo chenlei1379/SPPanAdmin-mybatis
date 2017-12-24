@@ -1,0 +1,5 @@
+2017-10-17 17:44:53.937 [restartedMain] INFO  net.sppan.base.Application - Starting Application on dazhangxiaochuan.local with PID 37752 (/Users/daxiao/Documents/IdeaProjects/SPPanAdmin/target/classes started by daxiao in /Users/daxiao/Documents/IdeaProjects/SPPanAdmin)
+2017-10-17 17:44:53.941 [restartedMain] DEBUG net.sppan.base.Application - Running with Spring Boot v1.5.2.RELEASE, Spring v4.3.7.RELEASE
+2017-10-17 17:44:53.941 [restartedMain] INFO  net.sppan.base.Application - No active profile set, falling back to default profiles: default
+2017-10-17 17:44:54.336 [background-preinit] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider found via system property
+2017-10-17 17:44:56.671 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited

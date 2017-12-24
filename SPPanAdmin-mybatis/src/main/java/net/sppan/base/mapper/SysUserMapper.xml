@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sppan.base.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="net.sppan.base.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="locked" jdbcType="INTEGER" property="locked" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, address, birthday, create_time, delete_status, description, email, locked, nick_name, 
+    password, sex, telephone, update_time, user_name
+  </sql>
+  
+  <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT
+		<include refid="Base_Column_List"/>
+	FROM
+		tb_user
+	WHERE
+		user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findByUserNameAndNickName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT
+		<include refid="Base_Column_List"/>
+	FROM
+		tb_user
+	WHERE
+		user_name like CONCAT('%',#{searchText,jdbcType=VARCHAR},'%')
+		or nick_name like  CONCAT('%',#{searchText,jdbcType=VARCHAR},'%')
+  </select>
+
+</mapper>

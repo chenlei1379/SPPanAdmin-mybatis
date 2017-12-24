@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sppan.base.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="net.sppan.base.entity.Role">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="role_key" jdbcType="VARCHAR" property="roleKey" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, description, name, role_key, status, update_time
+  </sql>
+  <select id="findAllByNameContainingOrDescriptionContaining" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT
+		<include refid="Base_Column_List"/>
+	FROM
+		tb_role
+	WHERE
+		NAME like CONCAT('%',#{searchText,jdbcType=VARCHAR},'%')
+	OR description like CONCAT('%',#{searchText,jdbcType=VARCHAR},'%')
+  </select>
+  
+  <select id="findRoleListByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT
+		<include refid="Base_Column_List"/>
+	from tb_role a,tb_user_role b where a.id = b.role_id and b.user_id = #{userid,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertRoleResource" parameterType="java.util.List">
+    insert into tb_role_resource (role_id,resource_id)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+     ( 
+      #{item.roleId,jdbcType=INTEGER},
+      #{item.resourceId,jdbcType=INTEGER})
+      </foreach>
+  </insert>
+  
+  <insert id="insertUserRole" parameterType="java.util.List">
+    insert into tb_user_role (user_id,role_id)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+     ( 
+      #{item.userId,jdbcType=INTEGER},
+      #{item.roleId,jdbcType=INTEGER})
+      </foreach>
+  </insert>
+  
+  
+  <delete id="deleteRoleUser" parameterType="java.lang.Integer">
+  	delete from tb_user_role where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteRoleResource" parameterType="java.lang.Integer">
+  	delete from tb_role_resource where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+ 
+</mapper>
